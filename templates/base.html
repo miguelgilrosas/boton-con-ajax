@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Botón con Ajax</title>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+    <div align="center">
+        <div id="numero"></div>
+        <div><button id="sumar">Sumar</button></div>
+        <div><button id="ver">Ver</button></div>
+     </div>
+    <script>
+        $("#sumar").on("click", function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/sumar",
+                dataType: 'json',
+                data: JSON.stringify({})
+                })
+            .done(function( data ) {});
+        });
+
+        $("#ver").on("click", function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "/ver",
+                dataType: 'json',
+                data: JSON.stringify({})
+                })
+            .done(function( data ) {
+                $("#numero").text(data.cuenta);
+            });
+        });
+    </script>
+</body>
+</html>
