@@ -12,25 +12,49 @@
         <div><button id="ver">Ver</button></div>
      </div>
     <script>
+        //Crea controladores de evntos.
+        
+        //Cuando se pulse "sumar"...
         $("#sumar").on("click", function(e) {
+            
+            //Evita la recarga de la página.
             e.preventDefault();
+            
+            //Inicia la llamada AJAX.
+            //Ésta es peculiar, no envía nada y no recibe nada, pero el
+            //hecho de que se produzca provoca cambios en el estado del servidor.
             $.ajax({
+                
+                //El tipo de petición es POST (porque provoca un cambio
+                //en el estado del servidor).
                 type: "POST",
                 url: "/sumar",
                 dataType: 'json',
+                
+                //No envía nada.
                 data: JSON.stringify({})
                 })
+                
+            //No recibe nada.
             .done(function( data ) {});
         });
-
+        
+        //Cuando se pulse "ver"...
         $("#ver").on("click", function(e) {
             e.preventDefault();
             $.ajax({
+                
+                //El tipo de petición es GET (vamos a solicitar algo).
                 type: "GET",
                 url: "/ver",
                 dataType: 'json',
+                
+                //No envía nada.
                 data: JSON.stringify({})
                 })
+                
+            //Recibe un JSON que contiene el valor de la cuenta
+            //y lo muestra.
             .done(function( data ) {
                 $("#numero").text(data.cuenta);
             });
